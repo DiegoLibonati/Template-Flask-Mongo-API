@@ -46,9 +46,9 @@ class TestBaseAPIError:
     def test_flask_response(self, app: Flask) -> None:
         with app.app_context():
             error = BaseAPIError(code="TEST", message="Test", status_code=400)
-            response = error.flask_response()
+            response, status_code = error.flask_response()
 
-            assert response.status_code == 400
+            assert status_code == 400
 
 
 class TestSpecificErrors:

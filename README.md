@@ -80,6 +80,32 @@ pytest-timeout==2.3.1
 5. Execute: `pip install -r requirements.test.txt`
 6. Execute: `pytest --log-cli-level=INFO`
 
+## Env Keys
+
+1. `TZ`: Refers to the timezone setting for the container.
+2. `MONGO_HOST`: Specifies the hostname or address where the MongoDB server is located. In this case, `host.docker.internal` allows a Docker container to connect to the host machine.
+3. `MONGO_PORT`: Defines the port on which the MongoDB server is listening for connections. The default MongoDB port is `27017`.
+4. `MONGO_USER`: Indicates the username for authenticating with the MongoDB database.
+5. `MONGO_PASS`: Contains the password associated with the user specified in `MONGO_USER` for authentication.
+6. `MONGO_DB_NAME`: Specifies the name of the database to which the application will connect within the MongoDB server.
+7. `MONGO_AUTH_SOURCE`: Defines the database where the user credentials will be verified. Typically set to `admin` when the credentials were created in that database.
+8. `HOST`: Refers to the network interface where the backend API listens (e.g., 0.0.0.0 to allow external connections).
+9. `PORT`: Refers to the port on which the backend API is exposed.
+
+```ts
+TZ=America/Argentina/Buenos_Aires
+
+MONGO_HOST=host.docker.internal
+MONGO_PORT=27017
+MONGO_USER=admin
+MONGO_PASS=secret123
+MONGO_DB_NAME=templates_db
+MONGO_AUTH_SOURCE=admin
+
+HOST=0.0.0.0
+PORT=5050
+```
+
 ## Project Structure
 ```
 Template-Flask-Mongo-API/
