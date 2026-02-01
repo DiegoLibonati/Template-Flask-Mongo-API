@@ -82,7 +82,7 @@ pytest-timeout==2.3.1
 
 ## Project Structure
 ```
-Template-Flask-API/
+Template-Flask-Mongo-API/
 ├── config/
 │   ├── __init__.py
 │   ├── default_config.py
