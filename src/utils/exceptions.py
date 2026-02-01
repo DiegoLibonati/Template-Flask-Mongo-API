@@ -1,6 +1,6 @@
 from typing import Any
 
-from flask import Response, make_response
+from flask import Response, jsonify
 
 from src.constants.codes import CODE_ERROR_API
 from src.constants.messages import MESSAGE_ERROR_API
@@ -40,8 +40,7 @@ class BaseAPIError(Exception):
         return response
 
     def flask_response(self) -> Response:
-        # TODO: Cambiar por jsonify
-        return make_response(self.to_dict(), self.status_code)
+        return jsonify(self.to_dict()), self.status_code
 
 
 class ValidationAPIError(BaseAPIError):
