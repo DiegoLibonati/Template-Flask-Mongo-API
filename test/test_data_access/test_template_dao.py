@@ -15,7 +15,6 @@ class TestTemplateDAOInsert:
 
         assert result.inserted_id is not None
 
-        # Verificar que está en la DB
         doc = mongo_db.templates.find_one({"_id": result.inserted_id})
         assert doc is not None
         assert doc["name"] == "Test Template"

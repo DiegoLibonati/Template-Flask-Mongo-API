@@ -18,7 +18,6 @@ class TestAliveController:
         response = client.get("/api/v1/templates/alive")
         data = response.get_json()
 
-        # Todos los valores deben ser strings
         assert isinstance(data["message"], str)
         assert isinstance(data["version_bp"], str)
         assert isinstance(data["author"], str)
