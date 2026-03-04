@@ -154,8 +154,7 @@ Template-Flask-Mongo-API/
 ├── docker-compose.test.yml
 ├── requirements.txt
 ├── requirements.test.txt
-├── pytest.ini
-├── setup.cfg
+├── pyproject.toml
 ├── .env
 ├── .env.example
 ├── .gitignore
@@ -180,6 +179,7 @@ Template-Flask-Mongo-API/
 16. `docker-compose.test.yml` -> Defines the **test environment** with MongoDB container for integration testing.
 17. `requirements.txt` -> Lists **production dependencies**.
 18. `requirements.test.txt` -> Lists **testing dependencies** (pytest, pytest-env, etc.).
+19. `pyproject.toml` -> **Unified project configuration** for pytest, ruff, and project metadata.
 
 ## Architecture & Design Patterns
 
