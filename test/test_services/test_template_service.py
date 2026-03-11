@@ -5,7 +5,7 @@ from pymongo.database import Database
 from pymongo.results import DeleteResult, InsertOneResult
 
 from src.constants.codes import (
-    CODE_ERROR_TEMPLATE_ALREADY_EXISTS,
+    CODE_ALREADY_EXISTS_TEMPLATE,
     CODE_NOT_FOUND_TEMPLATE,
 )
 from src.models.template_model import TemplateModel
@@ -103,7 +103,7 @@ class TestTemplateServiceErrorCodes:
         with pytest.raises(ConflictAPIError) as exc_info:
             TemplateService.add_template(TemplateModel(name=inserted_template["name"]))
 
-        assert exc_info.value.code == CODE_ERROR_TEMPLATE_ALREADY_EXISTS
+        assert exc_info.value.code == CODE_ALREADY_EXISTS_TEMPLATE
 
     def test_not_found_error_has_correct_code(self, app_without_startup: Flask, mongo_db: Database) -> None:
         with pytest.raises(NotFoundAPIError) as exc_info:

@@ -4,11 +4,11 @@ from bson import ObjectId
 from pymongo.results import DeleteResult, InsertOneResult
 
 from src.constants.codes import (
-    CODE_ERROR_TEMPLATE_ALREADY_EXISTS,
+    CODE_ALREADY_EXISTS_TEMPLATE,
     CODE_NOT_FOUND_TEMPLATE,
 )
 from src.constants.messages import (
-    MESSAGE_ERROR_TEMPLATE_ALREADY_EXISTS,
+    MESSAGE_ALREADY_EXISTS_TEMPLATE,
     MESSAGE_NOT_FOUND_TEMPLATE,
 )
 from src.data_access.template_dao import TemplateDAO
@@ -22,8 +22,8 @@ class TemplateService:
         existing = TemplateDAO.find_one_by_name(template.name)
         if existing:
             raise ConflictAPIError(
-                code=CODE_ERROR_TEMPLATE_ALREADY_EXISTS,
-                message=MESSAGE_ERROR_TEMPLATE_ALREADY_EXISTS,
+                code=CODE_ALREADY_EXISTS_TEMPLATE,
+                message=MESSAGE_ALREADY_EXISTS_TEMPLATE,
             )
         return TemplateDAO.insert_one(template.model_dump())
 
