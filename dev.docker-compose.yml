@@ -1,6 +1,6 @@
 services:
 
-  template-server:
+  boilerplate-server:
     build:
       context: .
       dockerfile: Dockerfile.development
@@ -10,13 +10,13 @@ services:
     volumes:
       - ".:/home/app"
     depends_on:
-      - template-db
+      - boilerplate-db
     ports:
       - "5050:5050"
     networks:
-      - template-net
+      - boilerplate-net
 
-  template-db:
+  boilerplate-db:
     image: mongo
     restart: always
     ports:
@@ -24,11 +24,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret123
-      MONGO_INITDB_DATABASE: template_db
+      MONGO_INITDB_DATABASE: boilerplate_db
     volumes:
       - db-data:/data/db
     networks:
-      - template-net
+      - boilerplate-net
 
   mongo-express:
     image: mongo-express
@@ -36,18 +36,18 @@ services:
     ports:
       - "8081:8081"
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://admin:secret123@template-db:27017/template_db?authSource=admin
+      ME_CONFIG_MONGODB_URL: mongodb://admin:secret123@boilerplate-db:27017/boilerplate_db?authSource=admin
       ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: admin123
     depends_on:
-      - template-db
+      - boilerplate-db
     networks:
-      - template-net
+      - boilerplate-net
 
 volumes:
   db-data:
     driver: local
 
 networks:
-  template-net:
+  boilerplate-net:
     driver: bridge

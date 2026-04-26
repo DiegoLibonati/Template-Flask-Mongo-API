@@ -1,12 +1,12 @@
 [project]
-name = "template-flask-api"
+name = "python-flask-mongo-api-boilerplate"
 version = "1.0.0"
-description = "Personal template for developing an API with Flask and MongoDB."
+description = "Python Flask Mongo Api Boilerplate is a production-ready boilerplate for building REST APIs with Flask and MongoDB, designed to eliminate the repetitive setup and architectural decisions that come with every new backend project."
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 pythonpath = "."
-testpaths = ["test"]
+testpaths = ["tests"]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"

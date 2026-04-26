@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "0b3f6947-7eb8-414c-9791-15c0ce7f25a9",
-    "name": "Template Flask Mongo API",
+    "name": "Python Flask Mongo Api Boilerplate",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "27611586"
   },

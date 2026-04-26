@@ -1,4 +1,4 @@
-# Template Flask Mongo API
+# Python Flask Mongo Api Boilerplate
 
 ## Educational Purpose
 
@@ -34,7 +34,26 @@ NOTE: Install **pre-commit** inside repository folder.
 
 ## Description
 
-Personal template for developing an API with Flask and MongoDB.
+**Python Flask Mongo Api Boilerplate** is a production-ready boilerplate for building REST APIs with **Flask** and **MongoDB**, designed to eliminate the repetitive setup and architectural decisions that come with every new backend project.
+
+**What it is:** A starting point — not a framework — for developers who want to spin up a Flask + MongoDB API without rebuilding the same infrastructure from scratch each time. Every layer, pattern, and tooling choice is already wired together and working.
+
+**The problem it solves:** Starting a Flask API from zero means making the same decisions repeatedly: how to structure layers, how to handle errors globally, how to validate input, how to configure environments, how to connect to MongoDB cleanly, how to set up Docker, linting, tests, and security audits. This template makes all those decisions once, so you can focus on building the actual product.
+
+**What it includes:**
+- **Layered architecture** enforced by convention: Blueprint → Controller → Service → DAO → MongoDB. Each layer has a single responsibility and only talks to the one directly below it.
+- **Pydantic v2** for request validation and data serialization, with a custom `exceptions_handler` decorator that automatically converts `ValidationError` and `PyMongoError` into structured JSON API responses — no try/catch boilerplate in controllers.
+- **Custom exception hierarchy** (`ValidationAPIError`, `NotFoundAPIError`, `ConflictAPIError`, `InternalAPIError`) that produces consistent error responses across the entire API.
+- **MongoDB Singleton** via `mongo_config.py` — a single shared connection instance across all modules, initialized through Flask's app context.
+- **Environment-based configuration** using a `DefaultConfig` base class extended by `DevelopmentConfig`, `TestingConfig`, and `ProductionConfig`, loaded dynamically by the app factory.
+- **Docker** setup for development and production, with a separate `docker-compose.test.yml` that spins up a real MongoDB container for integration tests.
+- **Gunicorn** as the production WSGI server, configured via `gunicorn_config.py`.
+- **Ruff** for fast linting and formatting, enforced automatically via **pre-commit** hooks on every commit.
+- **pip-audit** integration for scanning production dependencies against known vulnerability databases.
+- **pytest** configured with real database connections (no mocks), organized to mirror the `src/` structure — tests run against an actual MongoDB instance in Docker.
+- **Startup initialization** layer (`src/startup/`) for seeding default data when the app boots.
+
+**How to use it:** Clone the repository, bring up the Docker environment, and replace the `template` resource (blueprint, controller, service, DAO, model, constants) with your own domain logic. The architecture, tooling, error handling, and test setup are already in place — you only write what's unique to your application.
 
 ## Technologies used
 
@@ -75,7 +94,7 @@ pytest-xdist==3.5.0
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Template-Flask-Mongo-API`](https://www.diegolibonati.com.ar/#/project/Template-Flask-Mongo-API)
+[`https://www.diegolibonati.com.ar/#/project/python-flask-mongo-api-boilerplate`](https://www.diegolibonati.com.ar/#/project/python-flask-mongo-api-boilerplate)
 
 ## Testing
 
@@ -110,11 +129,11 @@ You can check your dependencies for known vulnerabilities using **pip-audit**.
 ```ts
 TZ=America/Argentina/Buenos_Aires
 
-MONGO_HOST=template-db
+MONGO_HOST=boilerplate-db
 MONGO_PORT=27017
 MONGO_USER=admin
 MONGO_PASS=secret123
-MONGO_DB_NAME=template_db
+MONGO_DB_NAME=boilerplate_db
 MONGO_AUTH_SOURCE=admin
 
 HOST=0.0.0.0
@@ -122,8 +141,9 @@ PORT=5050
 ```
 
 ## Project Structure
+
 ```
-Template-Flask-Mongo-API/
+python-flask-mongo-api-boilerplate/
 ├── src/
 │   ├── blueprints/
 │   │   ├── routes.py
@@ -354,7 +374,7 @@ class TemplateService:
         existing = TemplateDAO.find_one_by_id(_id)
         if not existing:
             raise NotFoundAPIError(
-                code=CODE_NOT_FOUND_TEMPLATE, 
+                code=CODE_NOT_FOUND_TEMPLATE,
                 message=MESSAGE_NOT_FOUND_TEMPLATE
             )
         return TemplateDAO.delete_one_by_id(_id)
@@ -430,7 +450,7 @@ class Mongo:
     def init_app(self, app: Flask) -> None:
         mongo_uri = app.config["MONGO_URI"]
         db_name = app.config["MONGO_DB_NAME"]
-        
+
         self.client = MongoClient(mongo_uri)
         self.db = self.client[db_name]
 
@@ -464,13 +484,13 @@ mongo.db.templates.find()
 # src/configs/default_config.py - Base template
 class DefaultConfig:
     TZ = os.getenv("TZ", "America/Argentina/Buenos_Aires")
-    
+
     MONGO_HOST = os.getenv("MONGO_HOST", "host.docker.internal")
     MONGO_PORT = os.getenv("MONGO_PORT", 27017)
     MONGO_USER = os.getenv("MONGO_USER", "admin")
     MONGO_PASS = os.getenv("MONGO_PASS", "secret123")
-    MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "templates_db")
-    
+    MONGO_DB_NAME = os.getenv("MONGO_DB_NAME", "boilerplate_db")
+
     DEBUG = False
     TESTING = False
 

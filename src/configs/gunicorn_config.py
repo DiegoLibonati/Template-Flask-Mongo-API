@@ -14,4 +14,4 @@ accesslog = "-"
 errorlog = "-"
 loglevel = "info"
 
-proc_name = "template-server"
+proc_name = "boilerplate-server"

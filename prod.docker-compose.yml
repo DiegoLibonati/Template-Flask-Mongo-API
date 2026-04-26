@@ -1,5 +1,5 @@
 services:
-  template-server:
+  boilerplate-server:
     build:
       context: .
       dockerfile: Dockerfile.production
@@ -7,28 +7,28 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - template-db
+      - boilerplate-db
     ports:
       - "5050:5050"
     networks:
-      - template-net
+      - boilerplate-net
 
-  template-db:
+  boilerplate-db:
     image: mongo:6
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret123
-      MONGO_INITDB_DATABASE: template_db
+      MONGO_INITDB_DATABASE: boilerplate_db
     volumes:
       - db-data:/data/db
     networks:
-      - template-net
+      - boilerplate-net
 
 volumes:
   db-data:
     driver: local
 
 networks:
-  template-net:
+  boilerplate-net:
     driver: bridge
