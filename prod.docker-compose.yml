@@ -7,14 +7,15 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - boilerplate-db
+      boilerplate-db:
+        condition: service_healthy
     ports:
       - "5050:5050"
     networks:
       - boilerplate-net
 
   boilerplate-db:
-    image: mongo:6
+    image: mongo:7.0
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -22,6 +23,12 @@ services:
       MONGO_INITDB_DATABASE: boilerplate_db
     volumes:
       - db-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     networks:
       - boilerplate-net
 
