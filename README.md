@@ -88,9 +88,9 @@ The Docker environment runs the app, but to use the local tooling (pre-commit ho
 2. Execute: `python -m venv venv`
 3. Execute in Windows: `venv\Scripts\activate`
 4. Execute in Linux/Mac: `source venv/bin/activate`
-5. Execute: `pip install -r requirements.txt`
-6. Execute: `pip install -r requirements.dev.txt`
-7. Execute: `pip install -r requirements.test.txt`
+5. Execute: `pip install -e .`
+6. Execute: `pip install -e ".[dev]"`
+7. Execute: `pip install -e ".[test]"`
 8. Execute all the commands you want
 
 ### Pre-Commit for Development
