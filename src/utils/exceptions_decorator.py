@@ -25,6 +25,7 @@ def exceptions_decorator(fn: Callable[P, R]) -> Callable[P, R]:
             return fn(*args, **kwargs)
 
         except BaseAPIError:
+            logger.debug("Domain API error propagated", exc_info=True)
             raise
 
         except ValidationError as e:
